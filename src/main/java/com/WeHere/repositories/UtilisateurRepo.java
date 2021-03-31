@@ -1,5 +1,6 @@
 package com.WeHere.repositories;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,9 @@ import com.WeHere.beans.Utilisateur;
 
 @Repository
 public interface UtilisateurRepo extends CrudRepository<Utilisateur, Integer>{
-
+	
+	Optional<Utilisateur> findByEmail(String email);
+	
 	@Query(value="select* from utilisateur",nativeQuery=true)
 	Set <Utilisateur> findAllByOrder();
 	

@@ -41,17 +41,20 @@ public class FichePresence {
 	Date dateJourPresence;
 	
 	@Column(name="heureCours")
-	Time heureCours;
+	String heureCours;
 	
 	@Column(name="raison")
 	String raison;
+	
+	@Column(name="statusFiche")
+	boolean statusFiche;
 	
 	@ManyToOne(cascade = { CascadeType.MERGE },fetch = FetchType.LAZY)
 	@JoinColumn(name = "idEleve", nullable = false)
 	private Utilisateur eleveFp;
 	
 	@ManyToOne(cascade = { CascadeType.MERGE },fetch = FetchType.LAZY)
-	@JoinColumn(name = "idProf", nullable = false)
+	@JoinColumn(name = "idProf")
 	private Utilisateur professeurFp;
 	
 	@ManyToOne(cascade = { CascadeType.MERGE },fetch = FetchType.LAZY)
@@ -94,11 +97,11 @@ public class FichePresence {
 		this.dateJourPresence = dateJourPresence;
 	}
 
-	public Time getHeureCours() {
+	public String getHeureCours() {
 		return heureCours;
 	}
 
-	public void setHeureCours(Time heureCours) {
+	public void setHeureCours(String heureCours) {
 		this.heureCours = heureCours;
 	}
 
@@ -140,6 +143,14 @@ public class FichePresence {
 
 	public void setRaison(String raison) {
 		this.raison = raison;
+	}
+
+	public boolean isStatusFiche() {
+		return statusFiche;
+	}
+
+	public void setStatusFiche(boolean statusFiche) {
+		this.statusFiche = statusFiche;
 	}
 
 	

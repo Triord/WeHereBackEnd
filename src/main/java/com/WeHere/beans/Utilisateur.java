@@ -20,6 +20,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.WeHere.services.Password;
 import com.WeHere.beans.Role;
 
 @Entity
@@ -48,6 +49,12 @@ public class Utilisateur {
 	
 	@Column(name="numTel")
 	String numTel;
+	
+	@Column(name="email")
+	String email;
+	
+	@Column(name="mdp")
+	String mdp;
 
 	@OneToMany(mappedBy = "eleve",fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
 	public Set<Cours> coursRecu;
@@ -63,7 +70,7 @@ public class Utilisateur {
 	
 	
 	@ManyToOne(cascade = { CascadeType.MERGE },fetch = FetchType.LAZY)
-	@JoinColumn(name = "idClasse", nullable = false)
+	@JoinColumn(name = "idClasse")
 	private Classe classe;
 	
 	@ManyToMany(cascade = { CascadeType.MERGE },fetch = FetchType.EAGER)
@@ -169,6 +176,28 @@ public class Utilisateur {
 	public void setClasse(Classe classe) {
 		this.classe = classe;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMdp() {
+		Password p = new Password(mdp);
+		p.firstHash();
+		System.out.println(p.getHash());
+		return mdp;
+	}
+
+	public void setMdp(String mdp) {
+		Password p = new Password(mdp);
+		p.firstHash();
+		this.mdp = p.getHash();
+	}
+	
 
 
 	
